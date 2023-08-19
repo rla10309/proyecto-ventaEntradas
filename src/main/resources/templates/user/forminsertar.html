@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{../../css/estilos.css}">
+<title>Venta de entradas</title>
+</head>
+
+<body>
+
+	<header>
+	  <nav class="nav text-bg-dark text-light p-5 align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <a class="fs-2 nav-link link-light" th:href="@{../../index}">Sala Corazón</a>
+             
+            </div>
+            <div class="d-flex">
+                <a class="nav-link link-light" href="/index.html" th:href="@{/login}">Iniciar sesión</a>
+                <a class="nav-link active link-light" th:href="@{/salir}">Salir</a>
+            </div>
+
+        </nav>
+	</header>
+
+	<section class="container w-25 my-5" style="min-height:500px;">
+		<form th:object="${venta}" th:action="@{/insertar}"
+			method="post">
+			<div class="mb-3">
+				<label for="dni" class="form-label">DNI Comprador</label> <input
+					type="text" class="form-control" id="dni" name="dni">
+			</div>
+			<div class="mb-3">
+				<label for="numeroentradas" class="form-label">Nª de
+					Entradas</label> <input type="text" class="form-control"
+					id="numeroentradas" name="numeroentradas">
+			</div>
+
+			<div class="mb-3">
+				<label for="concierto">Concierto</label> <select name="concierto"
+					id="concierto" class="form-select">
+					<option value="seleccion" selected>Seleccione concierto...</option>
+					<option th:each=" concierto: ${conciertos}"
+						th:value="${concierto.idconcierto}"
+						th:text="${concierto.grupo +' - ' + #temporals.format(concierto.fecha, 'dd/MM/yyyy')}"></option>
+				</select>
+			</div>
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert" th:if="${param.error}">
+
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span>Venta nula</span>
+			</div>
+
+			<button type="submit" class="btn text-bg-dark" >Compra</button>
+			<button type="button" class="btn text-bg-dark">
+				<a class="text-decoration-none link-light"
+					th:href="@{/user}">Atrás</a>
+			</button>
+		</form>
+	</section>
+
+	<footer class="p-4 text-bg-dark h-100 fs-6">
+		<p>Pilar Fernández Nieto</p>
+		<p>Proyecto Final Módulo Desarrollo Web en Entorno Servidor</p>
+		<p>rla10309@educastur.es</p>
+	</footer>
+
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>
